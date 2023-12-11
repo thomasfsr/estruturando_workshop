@@ -109,8 +109,6 @@ def get_tables(df:str,choose:str):
     returned = typee[choose]
     return returned
 
-
-
 def create_df_type(df:pd.DataFrame,name:str):
     df = df.assign(regiao=name)
     return df
