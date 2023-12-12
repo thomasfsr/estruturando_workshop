@@ -11,22 +11,6 @@ def scrape_data(url):
     tables = doc.css("table.table.table-striped.table-hover.table-condensed")
     return tables, doc
 
-def extract_table_data(tables):
-    table_data = []
-
-    for table in tables:
-        for row in table.css("tr"):
-            row_data = []
-            cells = row.css("th, td") 
-            for cell in cells:
-                row_data.append(cell.text().strip())
-
-            if any(row_data):
-                table_data.append(row_data)
-
-    df = pd.DataFrame(table_data[1:], columns=table_data[0])
-    return df
-
 def extract_ocorrencias(doc):
 
     ocorrencias = []
@@ -71,7 +55,7 @@ def replace_portuguese_months(data_frame, column_name):
 def extract_and_convert_date(data_frame, column_name):
     data_frame['date'] = data_frame[column_name].apply(lambda x: datetime.datetime.strptime(x.split(': ')[-1], '%B de %Y'))
 
-def get_tables(df:str,choose:str):
+def get_tables(df:str,choose:str, tables):
     ind = {'capital':1,'demacro':2,'interior':3,'total':4}
 
     i = ind[df]
